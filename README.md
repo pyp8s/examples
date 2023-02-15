@@ -2,6 +2,12 @@
 
 Here you can find a few simple usage examples.
 
+Prepare environment:
+
+1. Make sure you have Python 3.6+ installed
+1. Install pyp8s `python3 -m pip install pyp8s`
+1. Run an example `python3 examples/pyp8s_ticker.py`
+
 ## Ticker
 
 A tiny application that counts seconds from the startup.
