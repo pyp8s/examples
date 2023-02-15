@@ -38,11 +38,22 @@ import signal
 from pyp8s import MetricsHandler as meh
 
 
+LISTEN_ADDRESS = "127.0.0.1"
+LISTEN_PORT = 8081
+
+
 if __name__ == "__main__":
 
     meh.init("pyp8s_eternity", "gauge", "A metric that doesn't ever change")
 
-    meh.serve(listen_address="127.0.0.1", listen_port=8081)
+    meh.serve(listen_address=LISTEN_ADDRESS, listen_port=LISTEN_PORT)
 
-    signal.signal(signal.SIGINT, lambda _,__: print("\nok, bye\n"))
+    print(f"""""")
+    print(f"""Metrics server started on {LISTEN_ADDRESS}:{LISTEN_PORT}""")
+    print(f"""URL: http://{LISTEN_ADDRESS}:{LISTEN_PORT}/metrics""")
+    print(f"""Run in console: curl {LISTEN_ADDRESS}:{LISTEN_PORT}/metrics""")
+    print(f"""""")
+
+    signal.signal(signal.SIGINT, lambda _, __: print("\nok, bye\n"))
+    print(f"""Stop with Ctrl+C""")
     signal.pause()

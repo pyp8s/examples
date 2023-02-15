@@ -34,8 +34,14 @@
 
 
 import time
+import socket
 
 from pyp8s import MetricsHandler as meh
+
+
+LISTEN_ADDRESS = "127.0.0.1"
+LISTEN_PORT = 8081
+FQDN = socket.getfqdn()
 
 
 if __name__ == "__main__":
@@ -43,11 +49,20 @@ if __name__ == "__main__":
     meh.init("pyp8s_tricky_bits", "counter", "A dummy metric just to show up a few tricks")
     meh.init("pyp8s_ticker", "counter", "Reflects the number of seconds passed after the startup")
 
-    meh.serve(listen_address="127.0.0.1", listen_port=8081)
+    meh.serve(listen_address=LISTEN_ADDRESS, listen_port=LISTEN_PORT)
 
-    print('''Can't do that:''')
-    print('''>>> meh.inc("pyp8s_tricky_bits", 1, from="dog", if="bad_dog")''')
-    print('''that would be a syntax error''')
+    print(f"""""")
+    print(f"""Metrics server started on {LISTEN_ADDRESS}:{LISTEN_PORT}""")
+    print(f"""URL: http://{LISTEN_ADDRESS}:{LISTEN_PORT}/metrics""")
+    print(f"""Run in console: curl {LISTEN_ADDRESS}:{LISTEN_PORT}/metrics""")
+    print(f"""""")
+    print(f"""Stop with Ctrl+C""")
+
+    '''
+    Can't do that:
+    >>> meh.inc("pyp8s_tricky_bits", 1, from="dog", if="bad_dog")
+    that would be a syntax error
+    '''
 
     workaround_dict = {
         "from": "dog",
@@ -57,6 +72,6 @@ if __name__ == "__main__":
     meh.inc("pyp8s_tricky_bits", 1, **workaround_dict)
 
     while True:
-        meh.inc("pyp8s_ticker", 1)
+        meh.inc("pyp8s_ticker", 1, hostname=FQDN)
         time.sleep(1)
 
