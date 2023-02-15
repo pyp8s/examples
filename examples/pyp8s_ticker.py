@@ -34,15 +34,20 @@
 
 
 import time
+import socket
 
 from pyp8s import MetricsHandler as meh
 
 
 if __name__ == "__main__":
-    meh.set_metrics_name("pyp8s_eternity")
+
+    FQDN = socket.getfqdn()
+
+    meh.init("pyp8s_ticker", "counter", "Reflects the number of seconds passed after the startup")
+    
     meh.serve(listen_address="127.0.0.1", listen_port=8081)
 
     while True:
-        meh.inc("seconds", 1)
+        meh.inc("pyp8s_ticker", 1, hostname=FQDN)
         time.sleep(1)
 

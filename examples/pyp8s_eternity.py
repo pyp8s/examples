@@ -39,7 +39,9 @@ from pyp8s import MetricsHandler as meh
 
 
 if __name__ == "__main__":
-    meh.set_metrics_name("pyp8s_eternity")
+
+    meh.init("pyp8s_eternity", "gauge", "A metric that doesn't ever change")
+
     meh.serve(listen_address="127.0.0.1", listen_port=8081)
 
     signal.signal(signal.SIGINT, lambda _,__: print("\nok, bye\n"))

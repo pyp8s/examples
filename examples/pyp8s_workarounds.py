@@ -39,11 +39,14 @@ from pyp8s import MetricsHandler as meh
 
 
 if __name__ == "__main__":
-    meh.set_metrics_name("pyp8s_eternity")
+
+    meh.init("pyp8s_tricky_bits", "counter", "A dummy metric just to show up a few tricks")
+    meh.init("pyp8s_ticker", "counter", "Reflects the number of seconds passed after the startup")
+
     meh.serve(listen_address="127.0.0.1", listen_port=8081)
 
     print('''Can't do that:''')
-    print('''>>> meh.inc("catsPaws", 1, from="dog", if="bad_dog")''')
+    print('''>>> meh.inc("pyp8s_tricky_bits", 1, from="dog", if="bad_dog")''')
     print('''that would be a syntax error''')
 
     workaround_dict = {
@@ -51,9 +54,9 @@ if __name__ == "__main__":
         "if": "bad_dog",
     }
 
-    meh.inc("catsPaws", 1, **workaround_dict)
+    meh.inc("pyp8s_tricky_bits", 1, **workaround_dict)
 
     while True:
-        meh.inc("seconds", 1)
+        meh.inc("pyp8s_ticker", 1)
         time.sleep(1)
 
