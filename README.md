@@ -8,6 +8,14 @@ Prepare environment:
 1. Install pyp8s `python3 -m pip install pyp8s`
 1. Run an example `python3 examples/pyp8s_ticker.py`
 
+
+## Minimal
+
+An example of how simple it can be. It wouldn't be up to Prometheus standards, but it's going to work.
+
+[pyp8s_minimal.py](https://github.com/pyp8s/examples/blob/master/examples/pyp8s_minimal.py)
+
+
 ## Ticker
 
 A tiny application that counts seconds from the startup.
